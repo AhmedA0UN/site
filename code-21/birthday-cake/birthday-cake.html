@@ -6,6 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birthday Cake</title>
     <link rel="stylesheet" href="birthday-cake.css">
+    <style>
+        @keyframes translateUpDown {
+            from { transform: translateY(0); }
+            to { transform: translateY(-12px); }
+        }
+        .text p.translate {
+            display: inline-block;
+            animation: translateUpDown 1.8s ease-in-out infinite alternate;
+            font-size: 3rem;
+            line-height: 1;
+        }
+        
+    </style>
 </head>
 
 <body>
@@ -16,6 +29,7 @@
         <div class="fuego"></div>
         <div class="fuego"></div>
     </div>
+    <div class="spotlight" aria-hidden="true"></div>
     <svg id="cake" version="1.1" x="0px" y="0px" width="200px" height="500px" viewBox="0 0 200 500"
         enable-background="new 0 0 200 500" xml:space="preserve">
         <path fill="#a88679" d="M173.667-13.94c-49.298,0-102.782,0-147.334,0c-3.999,0-4-16.002,0-16.002
@@ -175,7 +189,7 @@
     </svg>
     <div class="text">
         <h1>happy birthday!</h1>
-        <p>SAFSAF</p>
+        <p class="translate">SAFSAF</p>
     </div>
 </body>
 

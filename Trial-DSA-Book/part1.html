@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>الخوارزميات وهياكل البيانات من الصفر للاحتراف - Eng. Ezzeldin Muhammed</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--p:#5b21b6;--pd:#3b0764;--pl:#7c3aed;--pp:#ede9fe;--g:#d97706;--gl:#fef3c7;--gn:#065f46;--gnl:#d1fae5;--r:#991b1b;--rl:#fee2e2;--bl:#1e40af;--bll:#dbeafe;--cb:#1e1b4b;--br:#e5e7eb;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Cairo',Arial,sans-serif;font-size:11pt;color:#1f2937;background:white;direction:rtl;line-height:1.9;}
+.pb{page-break-after:always;}
+
+/* COVER */
+.cover{width:100%;min-height:100vh;background:linear-gradient(160deg,#1e1b4b 0%,#3b0764 40%,#5b21b6 100%);display:flex;flex-direction:column;justify-content:space-between;padding:55px 65px;page-break-after:always;position:relative;overflow:hidden;}
+.clogo{width:50px;height:50px;background:rgba(255,255,255,0.12);border:2px solid rgba(255,255,255,0.25);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:700;color:#fde68a;}
+.cbrand{display:flex;align-items:center;gap:12px;}
+.cbn{font-size:20px;font-weight:900;color:#fde68a;letter-spacing:1px;}
+.ctag{font-family:'IBM Plex Mono',monospace;font-size:9pt;color:#c4b5fd;letter-spacing:3px;margin-bottom:18px;}
+.ct1{font-size:52pt;font-weight:900;color:white;line-height:1.1;}
+.ct2{font-size:52pt;font-weight:900;color:#a78bfa;line-height:1.1;}
+.ct3{font-size:52pt;font-weight:900;color:#fde68a;line-height:1.1;margin-bottom:28px;}
+.cdiv{width:90px;height:4px;background:linear-gradient(90deg,#fde68a,#a78bfa);border-radius:4px;margin-bottom:22px;}
+.cdesc{font-size:13pt;color:rgba(255,255,255,0.7);max-width:500px;line-height:1.8;}
+.cpills{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px;}
+.cpill{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.22);color:#e9d5ff;border-radius:50px;padding:5px 16px;font-size:10pt;font-weight:700;}
+.cabox{background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);border-radius:16px;padding:20px 28px;}
+.calbl{font-family:'IBM Plex Mono',monospace;font-size:8pt;color:#fde68a;letter-spacing:3px;margin-bottom:6px;}
+.caname{font-size:20pt;font-weight:900;color:white;}
+.casub{font-size:10pt;color:rgba(255,255,255,0.45);font-family:'IBM Plex Mono',monospace;}
+
+/* TOC */
+.toc-pg{padding:55px 65px;page-break-after:always;}
+.toc-h{text-align:center;margin-bottom:36px;}
+.toc-h h1{font-size:28pt;font-weight:900;color:var(--pd);}
+.toc-h p{font-size:9pt;color:#9ca3af;font-family:'IBM Plex Mono',monospace;letter-spacing:2px;margin-top:5px;}
+.toc-pt{font-size:9pt;font-weight:700;color:var(--p);letter-spacing:2px;border-bottom:2px solid var(--pp);padding-bottom:4px;margin-bottom:7px;margin-top:18px;}
+.toc-i{display:flex;align-items:center;padding:5px 0;border-bottom:1px dashed #e5e7eb;gap:10px;}
+.toc-n{background:var(--pd);color:#fde68a;font-family:'IBM Plex Mono',monospace;font-size:8pt;font-weight:700;padding:2px 7px;border-radius:4px;min-width:34px;text-align:center;}
+.toc-t{flex:1;font-size:11pt;font-weight:600;color:#1f2937;margin-right:10px;}
+.toc-d{flex:1;border-bottom:2px dotted #d1d5db;margin:0 6px;}
+.toc-p{font-family:'IBM Plex Mono',monospace;font-size:10pt;font-weight:700;color:var(--pl);}
+
+/* CHAPTER PAGE */
+.cp{padding:48px 65px 68px;page-break-after:always;}
+.pgh{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;padding-bottom:10px;border-bottom:2px solid var(--pp);}
+.pgch{font-size:9pt;color:var(--p);font-weight:700;letter-spacing:1px;}
+.pgbr{font-size:9pt;color:#9ca3af;font-family:'IBM Plex Mono',monospace;}
+.cho{background:linear-gradient(135deg,var(--pd),var(--pl));border-radius:16px;padding:26px 28px;margin-bottom:26px;position:relative;overflow:hidden;}
+.chnum{font-family:'IBM Plex Mono',monospace;font-size:9pt;color:#c4b5fd;letter-spacing:3px;margin-bottom:7px;}
+.chtitle{font-size:22pt;font-weight:900;color:white;line-height:1.2;margin-bottom:10px;}
+.chdesc{font-size:11pt;color:rgba(255,255,255,0.7);line-height:1.8;}
+h2.sec{font-size:15pt;font-weight:900;color:var(--pd);border-bottom:3px solid var(--pp);padding-bottom:5px;margin:22px 0 10px;position:relative;}
+h2.sec::after{content:'';position:absolute;bottom:-3px;right:0;width:55px;height:3px;background:var(--g);}
+h3.sub{font-size:13pt;font-weight:700;color:var(--p);margin:16px 0 7px;display:flex;align-items:center;gap:7px;}
+h3.sub::before{content:'◆';color:var(--g);font-size:9pt;}
+p.body{font-size:11pt;line-height:1.9;color:#374151;margin-bottom:10px;}
+
+/* BOXES */
+.def{background:var(--pp);border-right:5px solid var(--p);border-radius:0 12px 12px 0;padding:14px 17px;margin:12px 0;page-break-inside:avoid;}
+.def-t{font-size:10pt;font-weight:700;color:var(--p);margin-bottom:5px;}
+.note{border-radius:10px;padding:11px 15px;margin:11px 0;display:flex;align-items:flex-start;gap:9px;page-break-inside:avoid;font-size:10.5pt;}
+.note.tip{background:var(--gnl);border-right:4px solid #10b981;}
+.note.warn{background:#fef3c7;border-right:4px solid #f59e0b;}
+.note.info{background:var(--bll);border-right:4px solid #3b82f6;}
+.note.danger{background:var(--rl);border-right:4px solid #ef4444;}
+.note.gold{background:var(--gl);border-right:4px solid var(--g);}
+.ni{font-size:14pt;flex-shrink:0;margin-top:1px;}
+
+/* CODE */
+.cw{margin:11px 0;border-radius:10px;overflow:hidden;page-break-inside:avoid;}
+.ch{background:#312e81;padding:6px 13px;display:flex;justify-content:space-between;align-items:center;}
+.cl{font-family:'IBM Plex Mono',monospace;font-size:8pt;color:#fde68a;font-weight:700;letter-spacing:1px;}
+.clb{font-size:8pt;color:rgba(255,255,255,0.45);font-family:'IBM Plex Mono',monospace;}
+.cb2{background:var(--cb);padding:13px 17px;direction:ltr;text-align:left;}
+.cb2 pre{font-family:'IBM Plex Mono','Courier New',monospace;font-size:9.5pt;color:#c4b5fd;line-height:1.8;white-space:pre;}
+.kw{color:#f0abfc;font-weight:700;}.fn{color:#7dd3fc;}.num{color:#fde68a;}.cm{color:#6b7280;font-style:italic;}.str{color:#6ee7b7;}.tp{color:#fda4af;}.op{color:#fb923c;}.inc{color:#a78bfa;}
+
+/* TABLE */
+.cxt{width:100%;border-collapse:collapse;margin:13px 0;font-size:10pt;direction:rtl;page-break-inside:avoid;}
+.cxt th{background:var(--pd);color:#fde68a;padding:8px 11px;text-align:center;font-weight:700;}
+.cxt td{padding:7px 11px;text-align:center;border-bottom:1px solid var(--br);}
+.cxt tr:nth-child(even) td{background:#f9f9ff;}
+.g{color:#065f46;font-weight:700;font-family:'IBM Plex Mono',monospace;}
+.m{color:#92400e;font-weight:700;font-family:'IBM Plex Mono',monospace;}
+.b{color:#991b1b;font-weight:700;font-family:'IBM Plex Mono',monospace;}
+
+/* BADGES */
+.bd{display:inline-flex;align-items:center;padding:3px 11px;border-radius:50px;font-family:'IBM Plex Mono',monospace;font-size:9pt;font-weight:700;margin:2px;}
+.bd.exc{background:#d1fae5;color:#065f46;border:1.5px solid #6ee7b7;}
+.bd.gd{background:var(--bll);color:#1e3a8a;border:1.5px solid #93c5fd;}
+.bd.md{background:#fef3c7;color:#78350f;border:1.5px solid #fcd34d;}
+.bd.bd2{background:var(--rl);color:#7f1d1d;border:1.5px solid #fca5a5;}
+
+/* ARRAYS VIS */
+.av{display:flex;align-items:flex-end;gap:3px;direction:ltr;justify-content:center;margin:10px 0;flex-wrap:wrap;}
+.ac{text-align:center;}
+.cell{width:38px;height:38px;border:2px solid var(--p);display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700;border-radius:6px;font-family:'IBM Plex Mono',monospace;color:var(--pd);}
+.cell.c1{background:#fde68a;}.cell.c2{background:#a7f3d0;}.cell.c3{background:#bfdbfe;}.cell.c4{background:#fecaca;}.cell.c5{background:#ddd6fe;}.cell.c6{background:#fed7aa;}.cell.c7{background:#fbcfe8;}
+.cell.hi{background:var(--g);border-color:#d97706;transform:scale(1.12);}
+.cell.ok{background:#10b981;color:white;border-color:#059669;}
+.cell.pv{background:#ef4444;color:white;border-color:#dc2626;}
+.cell.st{background:#7c3aed;color:white;border-color:#5b21b6;}
+.cell.cp{background:#3b82f6;color:white;border-color:#1d4ed8;}
+.ci{font-size:8pt;color:#9ca3af;font-family:'IBM Plex Mono',monospace;text-align:center;margin-top:3px;}
+
+/* STEPS */
+.steps{margin:10px 0;}
+.step{display:flex;gap:11px;align-items:flex-start;margin-bottom:7px;page-break-inside:avoid;}
+.sn{min-width:26px;height:26px;background:var(--p);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10pt;font-weight:900;flex-shrink:0;margin-top:2px;}
+.sb{flex:1;}
+.st2{font-size:11pt;font-weight:700;color:var(--pd);}
+.sd{font-size:10.5pt;color:#4b5563;line-height:1.7;}
+
+/* CHECKS */
+.chk{display:flex;gap:8px;align-items:flex-start;margin:5px 0;font-size:10.5pt;}
+.chki{color:var(--p);font-size:11pt;margin-top:3px;flex-shrink:0;}
+
+/* INTERVIEW BOX */
+.ib{background:linear-gradient(135deg,#1e1b4b,#312e81);border-radius:12px;padding:18px 21px;margin:15px 0;page-break-inside:avoid;}
+.ibt{font-size:11pt;font-weight:700;color:#fde68a;margin-bottom:9px;display:flex;align-items:center;gap:7px;}
+.ibq{font-size:10.5pt;color:#c4b5fd;margin:5px 0;padding-right:11px;border-right:3px solid var(--pl);line-height:1.7;}
+
+/* EXERCISE */
+.ex{border:2px solid var(--p);border-radius:12px;overflow:hidden;margin:13px 0;page-break-inside:avoid;}
+.exh{background:var(--p);padding:8px 15px;display:flex;justify-content:space-between;align-items:center;}
+.ext{font-size:11pt;font-weight:700;color:white;}
+.exm{font-size:9pt;color:#c4b5fd;font-family:'IBM Plex Mono',monospace;}
+.exb{padding:13px 17px;}
+.diff{display:inline-flex;align-items:center;padding:2px 10px;border-radius:50px;font-size:8.5pt;font-weight:700;margin-left:7px;}
+.diff.easy{background:#d1fae5;color:#065f46;}
+.diff.med{background:#fef3c7;color:#78350f;}
+.diff.hard{background:var(--rl);color:#7f1d1d;}
+.ct{display:inline-block;background:var(--bll);color:var(--bl);border-radius:4px;padding:1px 7px;font-size:8pt;font-weight:700;margin:2px;}
+
+/* LAYOUT */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:11px 0;}
+.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin:11px 0;}
+.card{background:#f3f4f6;border:1.5px solid var(--br);border-radius:10px;padding:13px;page-break-inside:avoid;}
+.card.purple{background:var(--pp);border-color:#a78bfa;}
+.card.green{background:var(--gnl);border-color:#6ee7b7;}
+.card.gold{background:var(--gl);border-color:#fcd34d;}
+.card.red{background:var(--rl);border-color:#fca5a5;}
+.card-t{font-size:11pt;font-weight:700;color:var(--pd);margin-bottom:7px;}
+
+/* FORMULA */
+.formula{background:var(--cb);border:1px solid #4c1d95;border-radius:8px;padding:9px 17px;text-align:center;margin:9px 0;font-family:'IBM Plex Mono',monospace;font-size:12pt;color:#fde68a;font-weight:700;direction:ltr;letter-spacing:1px;}
+
+/* FOOTER */
+.pgf{margin-top:38px;padding-top:9px;border-top:1.5px solid var(--pp);display:flex;justify-content:space-between;align-items:center;}
+.pga{font-size:8.5pt;color:var(--g);font-weight:700;}
+.pgn{font-size:8.5pt;color:#9ca3af;font-family:'IBM Plex Mono',monospace;}
+
+/* TRACE TABLE */
+.tt{width:100%;border-collapse:collapse;font-size:9.5pt;direction:ltr;margin:10px 0;page-break-inside:avoid;}
+.tt th{background:#312e81;color:#e9d5ff;padding:6px 9px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:8.5pt;}
+.tt td{padding:6px 9px;text-align:center;border-bottom:1px solid #e5e7eb;font-family:'IBM Plex Mono',monospace;}
+.tt tr:nth-child(even) td{background:#f5f3ff;}
+.tt .hi td{background:#fde68a;color:#1c1917;font-weight:700;}
+
+/* DIVIDER */
+hr.dv{border:none;border-top:1.5px solid var(--pp);margin:17px 0;}
+
+/* BACK COVER */
+.bc{width:100%;min-height:100vh;background:linear-gradient(160deg,#1e1b4b 0%,#3b0764 50%,#5b21b6 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px;}
+</style>
+</head>
+<body>
+
+<!-- ══════ COVER ══════ -->
+<div class="cover">
+  <div style="position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(255,255,255,0.04);top:-200px;left:-150px;"></div>
+  <div style="position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(240,192,64,0.05);bottom:80px;right:-80px;"></div>
+  <div style="position:absolute;top:0;right:0;width:6px;height:100%;background:linear-gradient(to bottom,#fde68a,#a78bfa,#fde68a);"></div>
+
+  <div class="cbrand">
+    <div class="clogo">&lt;/&gt;</div>
+    <span class="cbn">CodexHub</span>
+    <span style="margin-right:auto;font-family:'IBM Plex Mono',monospace;font-size:9pt;color:rgba(255,255,255,0.35);letter-spacing:2px;">ARABIC TECH BOOKS</span>
+  </div>
+
+  <div>
+    <div class="ctag">● ALGORITHMS &amp; DATA STRUCTURES — ARABIC FIRST EDITION</div>
+    <div class="ct1">الخوارزميات</div>
+    <div class="ct2">وهياكل البيانات</div>
+    <div class="ct3">من الصفر للاحتراف</div>
+    <div class="cdiv"></div>
+    <div class="cdesc">الكتاب العربي الأول والشامل لتعلم الخوارزميات وهياكل البيانات — بلغة C++، مع تمارين LeetCode Style، وتحضير احترافي لمقابلات Google, Amazon, Meta, Microsoft.</div>
+    <div class="cpills">
+      <span class="cpill">🔷 C++</span>
+      <span class="cpill">📊 هياكل البيانات</span>
+      <span class="cpill">⚡ الخوارزميات</span>
+      <span class="cpill">🏆 LeetCode Style</span>
+      <span class="cpill">🎯 FAANG Interviews</span>
+      <span class="cpill">Big-O Analysis</span>
+      <span class="cpill">🌀 Dynamic Programming</span>
+      <span class="cpill">🌐 Graph Algorithms</span>
+    </div>
+  </div>
+
+  <div class="cabox">
+    <div class="calbl">AUTHOR — المؤلف</div>
+    <div class="caname">Eng. Ezzeldin Muhammed</div>
+    <div class="casub">✦ CodexHub — Arabic Tech Content Creator</div>
+  </div>
+</div>
+
+<!-- ══════ TOC ══════ -->
+<div class="toc-pg">
+  <div class="toc-h"><h1>فهرس المحتويات</h1><p>TABLE OF CONTENTS</p></div>
+
+  <div class="toc-pt">الجزء الأول — الأساسيات والتمهيد</div>
+  <div class="toc-i"><span class="toc-n">01</span><span class="toc-t">مقدمة — ما هي الخوارزمية وهيكل البيانات؟</span><span class="toc-d"></span><span class="toc-p">5</span></div>
+  <div class="toc-i"><span class="toc-n">02</span><span class="toc-t">تعقيد الوقت والمساحة — Big-O Notation</span><span class="toc-d"></span><span class="toc-p">13</span></div>
+  <div class="toc-i"><span class="toc-n">03</span><span class="toc-t">المصفوفات — Arrays &amp; Vectors</span><span class="toc-d"></span><span class="toc-p">24</span></div>
+  <div class="toc-i"><span class="toc-n">04</span><span class="toc-t">القائمة المرتبطة — Linked Lists</span><span class="toc-d"></span><span class="toc-p">36</span></div>
+  <div class="toc-i"><span class="toc-n">05</span><span class="toc-t">المكدس والطابور — Stack &amp; Queue</span><span class="toc-d"></span><span class="toc-p">49</span></div>
+
+  <div class="toc-pt">الجزء الثاني — البحث والفرز</div>
+  <div class="toc-i"><span class="toc-n">06</span><span class="toc-t">خوارزميات البحث — Linear &amp; Binary Search</span><span class="toc-d"></span><span class="toc-p">62</span></div>
+  <div class="toc-i"><span class="toc-n">07</span><span class="toc-t">الفرز الأساسي — Bubble, Selection, Insertion Sort</span><span class="toc-d"></span><span class="toc-p">73</span></div>
+  <div class="toc-i"><span class="toc-n">08</span><span class="toc-t">الفرز المتقدم — Merge Sort, Quick Sort, Heap Sort</span><span class="toc-d"></span><span class="toc-p">86</span></div>
+
+  <div class="toc-pt">الجزء الثالث — هياكل البيانات المتقدمة</div>
+  <div class="toc-i"><span class="toc-n">09</span><span class="toc-t">الأشجار وشجرة البحث الثنائية — Trees &amp; BST</span><span class="toc-d"></span><span class="toc-p">100</span></div>
+  <div class="toc-i"><span class="toc-n">10</span><span class="toc-t">الكومة وطابور الأولوية — Heap &amp; Priority Queue</span><span class="toc-d"></span><span class="toc-p">114</span></div>
+  <div class="toc-i"><span class="toc-n">11</span><span class="toc-t">جداول التجزئة — Hash Tables</span><span class="toc-d"></span><span class="toc-p">125</span></div>
+  <div class="toc-i"><span class="toc-n">12</span><span class="toc-t">الرسوم البيانية — Graphs</span><span class="toc-d"></span><span class="toc-p">136</span></div>
+
+  <div class="toc-pt">الجزء الرابع — تقنيات الحل المتقدمة</div>
+  <div class="toc-i"><span class="toc-n">13</span><span class="toc-t">التكرار وفرّق تسُد — Recursion &amp; D&amp;C</span><span class="toc-d"></span><span class="toc-p">149</span></div>
+  <div class="toc-i"><span class="toc-n">14</span><span class="toc-t">البرمجة الديناميكية — Dynamic Programming</span><span class="toc-d"></span><span class="toc-p">161</span></div>
+  <div class="toc-i"><span class="toc-n">15</span><span class="toc-t">الخوارزميات الجشعة — Greedy Algorithms</span><span class="toc-d"></span><span class="toc-p">175</span></div>
+  <div class="toc-i"><span class="toc-n">16</span><span class="toc-t">خوارزميات الرسوم البيانية — BFS, DFS, Dijkstra</span><span class="toc-d"></span><span class="toc-p">186</span></div>
+
+  <div class="toc-pt">الجزء الخامس — تحضير المقابلات والمراجعة</div>
+  <div class="toc-i"><span class="toc-n">17</span><span class="toc-t">استراتيجيات المقابلات + أسئلة Google, Amazon, Meta</span><span class="toc-d"></span><span class="toc-p">200</span></div>
+  <div class="toc-i"><span class="toc-n">18</span><span class="toc-t">Cheat Sheet شامل — جداول التعقيدات الكاملة</span><span class="toc-d"></span><span class="toc-p">218</span></div>
+
+  <div style="margin-top:28px;background:linear-gradient(135deg,var(--pd),var(--pl));border-radius:12px;padding:18px 20px;color:white;">
+    <div style="font-size:12pt;font-weight:700;color:#fde68a;margin-bottom:9px;">📌 كيف تستخدم هذا الكتاب بشكل صحيح؟</div>
+    <div class="chk" style="color:rgba(255,255,255,0.85);"><span class="chki" style="color:#fde68a;">✦</span><span>اقرأ كل فصل بالترتيب — كل مفهوم يبني على اللي قبله.</span></div>
+    <div class="chk" style="color:rgba(255,255,255,0.85);"><span class="chki" style="color:#fde68a;">✦</span><span>حل كل تمرين بنفسك قبل ما تشوف الحل المقدّم.</span></div>
+    <div class="chk" style="color:rgba(255,255,255,0.85);"><span class="chki" style="color:#fde68a;">✦</span><span>ارجع للـ Cheat Sheet في الفصل الأخير كمرجع سريع.</span></div>
+    <div class="chk" style="color:rgba(255,255,255,0.85);"><span class="chki" style="color:#fde68a;">✦</span><span>حل تمارين LeetCode الموصى بها بجانب كل فصل.</span></div>
+  </div>
+</div>
+
+<!-- ══════ CH 1: INTRO ══════ -->
+<div class="cp">
+  <div class="pgh"><span class="pgch">الفصل الأول ● مقدمة في الخوارزميات وهياكل البيانات</span><span class="pgbr">CodexHub ✦ Eng. Ezzeldin Muhammed</span></div>
+
+  <div class="cho">
+    <div class="chnum">CHAPTER 01 — INTRODUCTION</div>
+    <div class="chtitle">مقدمة في الخوارزميات<br>وهياكل البيانات</div>
+    <div class="chdesc">ما هي الخوارزمية؟ ما هو هيكل البيانات؟ ولماذا هما أهم ما يتعلمه أي مبرمج يريد النجاح؟ في هذا الفصل نضع الأساس الكامل لرحلتك.</div>
+  </div>
+
+  <h2 class="sec">1.1 ما هي الخوارزمية؟</h2>
+  <div class="def">
+    <div class="def-t">💡 التعريف الرسمي</div>
+    <p class="body">الخوارزمية هي <strong>مجموعة محدودة من الخطوات المرتبة والمحددة بوضوح</strong> لحل مشكلة معينة. تأخذ مدخلات وتنتج مخرجات خلال عدد منتهٍ من الخطوات.</p>
+  </div>
+  <p class="body">فكّر في الخوارزمية كوصفة طبخ — لديك مكوّنات (مدخلات)، وخطوات محددة (المعالجة)، وطبق جاهز في النهاية (مخرجات). الفرق أن الخوارزمية تحل مشاكل حسابية.</p>
+
+  <div class="two">
+    <div class="card purple">
+      <div class="card-t">🍳 مثال من الحياة اليومية</div>
+      <div class="steps">
+        <div class="step"><div class="sn">1</div><div class="sb"><div class="st2">المدخلات</div><div class="sd">مكوّنات الطبق الخام</div></div></div>
+        <div class="step"><div class="sn">2</div><div class="sb"><div class="st2">المعالجة</div><div class="sd">اتّبع الوصفة خطوة بخطوة</div></div></div>
+        <div class="step"><div class="sn">3</div><div class="sb"><div class="st2">المخرجات</div><div class="sd">الطبق الجاهز للأكل 🍽️</div></div></div>
+      </div>
+    </div>
+    <div class="card green">
+      <div class="card-t">💻 مثال برمجي</div>
+      <div class="steps">
+        <div class="step"><div class="sn">1</div><div class="sb"><div class="st2">المدخلات</div><div class="sd">قائمة أرقام غير مرتبة</div></div></div>
+        <div class="step"><div class="sn">2</div><div class="sb"><div class="st2">المعالجة</div><div class="sd">قارن العناصر وبادل بينها</div></div></div>
+        <div class="step"><div class="sn">3</div><div class="sb"><div class="st2">المخرجات</div><div class="sd">قائمة مرتبة تصاعديًا ✅</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="sec">1.2 خصائص الخوارزمية الجيدة</h2>
+  <div class="two">
+    <div>
+      <div class="chk"><span class="chki">✦</span><div><strong>المحدودية (Finiteness):</strong> تنتهي بعد عدد محدود من الخطوات.</div></div>
+      <div class="chk"><span class="chki">✦</span><div><strong>الوضوح (Definiteness):</strong> كل خطوة محددة بدقة، لا غموض.</div></div>
+      <div class="chk"><span class="chki">✦</span><div><strong>الفعالية (Effectiveness):</strong> كل خطوة قابلة للتنفيذ فعلياً.</div></div>
+    </div>
+    <div>
+      <div class="chk"><span class="chki">✦</span><div><strong>المدخلات (Input):</strong> صفر أو أكثر من القيم المدخلة.</div></div>
+      <div class="chk"><span class="chki">✦</span><div><strong>المخرجات (Output):</strong> قيمة ناتجة واحدة على الأقل.</div></div>
+      <div class="chk"><span class="chki">✦</span><div><strong>العمومية (Generality):</strong> تحل نوع المشكلة، لا حالة واحدة.</div></div>
+    </div>
+  </div>
+
+  <h2 class="sec">1.3 ما هو هيكل البيانات؟</h2>
+  <div class="def">
+    <div class="def-t">💡 التعريف</div>
+    <p class="body">هيكل البيانات هو <strong>طريقة تنظيم وتخزين البيانات في الذاكرة</strong> بحيث يمكن الوصول إليها بكفاءة. اختيار هيكل البيانات الصحيح يُحدد كفاءة البرنامج بأكمله.</p>
+  </div>
+
+  <div class="three">
+    <div class="card purple">
+      <div class="card-t">📦 الخطية</div>
+      <div class="chk"><span class="chki">▸</span><div>Array — المصفوفة</div></div>
+      <div class="chk"><span class="chki">▸</span><div>Linked List</div></div>
+      <div class="chk"><span class="chki">▸</span><div>Stack — المكدس</div></div>
+      <div class="chk"><span class="chki">▸</span><div>Queue — الطابور</div></div>
+    </div>
+    <div class="card green">
+      <div class="card-t">🌳 غير الخطية</div>
+      <div class="chk"><span class="chki">▸</span><div>Tree — الشجرة</div></div>
+      <div class="chk"><span class="chki">▸</span><div>Heap — الكومة</div></div>
+      <div class="chk"><span class="chki">▸</span><div>Graph — الرسم</div></div>
+      <div class="chk"><span class="chki">▸</span><div>Trie</div></div>
+    </div>
+    <div class="card gold">
+      <div class="card-t">🗺️ التجزئة</div>
+      <div class="chk"><span class="chki">▸</span><div>Hash Table</div></div>
+      <div class="chk"><span class="chki">▸</span><div>unordered_map</div></div>
+      <div class="chk"><span class="chki">▸</span><div>unordered_set</div></div>
+      <div class="chk"><span class="chki">▸</span><div>HashMap</div></div>
+    </div>
+  </div>
+
+  <h2 class="sec">1.4 لماذا نتعلمهما؟</h2>
+  <div class="note info"><span class="ni">🎯</span><span><strong>المقابلات الوظيفية:</strong> 90% من أسئلة FAANG تعتمد على الخوارزميات وهياكل البيانات. إتقانها = وظيفة أحلامك بمرتب أعلى.</span></div>
+  <div class="note tip"><span class="ni">🚀</span><span><strong>كفاءة البرامج:</strong> الفرق بين O(n²) وO(n log n) على مليون عنصر = الفرق بين 16 دقيقة و20 ثانية!</span></div>
+  <div class="note gold"><span class="ni">🏆</span><span><strong>Competitive Programming:</strong> مسابقات ICPC وCF وGoogle Code Jam تقيس قدرتك على اختيار الخوارزمية الصحيحة في ضغط الوقت.</span></div>
+  <div class="note warn"><span class="ni">💡</span><span><strong>فهم الأنظمة:</strong> كل نظام حقيقي — قاعدة بيانات، متصفح، نظام تشغيل — مبني على هياكل بيانات وخوارزميات محددة.</span></div>
+
+  <div class="pgf"><span class="pga">Eng. Ezzeldin Muhammed — CodexHub</span><span class="pgn">PAGE 05</span></div>
+</div>
+
+<!-- ══════ CH 2: BIG-O ══════ -->
+<div class="cp">
+  <div class="pgh"><span class="pgch">الفصل الثاني ● Big-O Notation</span><span class="pgbr">CodexHub ✦ Eng. Ezzeldin Muhammed</span></div>
+  <div class="cho">
+    <div class="chnum">CHAPTER 02 — COMPLEXITY ANALYSIS</div>
+    <div class="chtitle">تعقيد الوقت والمساحة<br>Big-O Notation</div>
+    <div class="chdesc">قبل أن تكتب سطراً واحداً من كودك، لازم تعرف كيف تقيس كفاءته. Big-O هي لغة التواصل بين المبرمجين لوصف أداء الخوارزميات.</div>
+  </div>
+
+  <h2 class="sec">2.1 ما هو Big-O؟</h2>
+  <div class="def">
+    <div class="def-t">💡 التعريف</div>
+    <p class="body">Big-O Notation هو تدوين رياضي يصف <strong>كيف يتزايد وقت تنفيذ الخوارزمية أو استهلاكها للذاكرة مع زيادة حجم المدخلات (n)</strong>. نركز على السلوك عند n الكبيرة ونتجاهل الثوابت.</p>
+  </div>
+
+  <h2 class="sec">2.2 ترتيب التعقيدات (من الأسرع للأبطأ)</h2>
+  <div style="text-align:center;margin:13px 0;direction:ltr;">
+    <span class="bd exc">O(1)</span>
+    <span style="color:#9ca3af;font-size:14pt;">→</span>
+    <span class="bd exc">O(log n)</span>
+    <span style="color:#9ca3af;font-size:14pt;">→</span>
+    <span class="bd gd">O(n)</span>
+    <span style="color:#9ca3af;font-size:14pt;">→</span>
+    <span class="bd md">O(n log n)</span>
+    <span style="color:#9ca3af;font-size:14pt;">→</span>
+    <span class="bd bd2">O(n²)</span>
+    <span style="color:#9ca3af;font-size:14pt;">→</span>
+    <span class="bd bd2">O(2ⁿ)</span>
+    <span style="color:#9ca3af;font-size:14pt;">→</span>
+    <span class="bd bd2">O(n!)</span>
+  </div>
+
+  <table class="cxt">
+    <thead><tr><th>التعقيد</th><th>الاسم</th><th>n=10</th><th>n=100</th><th>n=1,000</th><th>n=10,000</th><th>مثال</th></tr></thead>
+    <tbody>
+      <tr><td class="g">O(1)</td><td>ثابت</td><td class="g">1</td><td class="g">1</td><td class="g">1</td><td class="g">1</td><td>arr[i]</td></tr>
+      <tr><td class="g">O(log n)</td><td>لوغاريتمي</td><td class="g">3</td><td class="g">7</td><td class="g">10</td><td class="g">13</td><td>Binary Search</td></tr>
+      <tr><td class="g">O(n)</td><td>خطي</td><td class="g">10</td><td class="m">100</td><td class="m">1K</td><td class="m">10K</td><td>Linear Search</td></tr>
+      <tr><td class="m">O(n log n)</td><td>شبه خطي</td><td class="g">33</td><td class="m">664</td><td class="m">10K</td><td class="b">133K</td><td>Merge Sort</td></tr>
+      <tr><td class="m">O(n²)</td><td>تربيعي</td><td class="m">100</td><td class="b">10K</td><td class="b">1M</td><td class="b">100M</td><td>Bubble Sort</td></tr>
+      <tr><td class="b">O(2ⁿ)</td><td>أسي</td><td class="b">1,024</td><td class="b">∞</td><td class="b">∞</td><td class="b">∞</td><td>Fibonacci Naive</td></tr>
+      <tr><td class="b">O(n!)</td><td>عاملي</td><td class="b">3.6M</td><td class="b">∞</td><td class="b">∞</td><td class="b">∞</td><td>Permutations</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="sec">2.3 قواعد حساب Big-O</h2>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div><div class="sb"><div class="st2">تجاهل الثوابت</div><div class="sd">O(3n) = O(n) | O(100) = O(1) | O(5n²) = O(n²)</div></div></div>
+    <div class="step"><div class="sn">2</div><div class="sb"><div class="st2">احتفظ بالحد الأعلى فقط (Dominant Term)</div><div class="sd">O(n² + n) = O(n²) | O(n log n + n) = O(n log n)</div></div></div>
+    <div class="step"><div class="sn">3</div><div class="sb"><div class="st2">الحلقات المتداخلة تُضرب</div><div class="sd">حلقة O(n) بداخل حلقة O(n) = O(n²)</div></div></div>
+    <div class="step"><div class="sn">4</div><div class="sb"><div class="st2">الحلقات المتتالية تُجمع</div><div class="sd">O(n) + O(m) = O(n + m) | لكن إن كانت نفس المتغير: O(n) + O(n) = O(n)</div></div></div>
+  </div>
+
+  <h2 class="sec">2.4 أمثلة عملية بـ C++</h2>
+  <div class="cw">
+    <div class="ch"><span class="cl">C++ — أمثلة Big-O</span><span class="clb">complexity_examples.cpp</span></div>
+    <div class="cb2"><pre>
+<span class="cm">// ── O(1) — الوصول المباشر ──────────────────────</span>
+<span class="tp">int</span> <span class="fn">getFirst</span>(<span class="tp">vector</span>&lt;<span class="tp">int</span>&gt;&amp; arr) {
+    <span class="kw">return</span> arr[<span class="num">0</span>];  <span class="cm">// دائماً خطوة واحدة بغض النظر عن n</span>
+}
+
+<span class="cm">// ── O(n) — حلقة بسيطة ─────────────────────────</span>
+<span class="tp">int</span> <span class="fn">findMax</span>(<span class="tp">vector</span>&lt;<span class="tp">int</span>&gt;&amp; arr) {
+    <span class="tp">int</span> maxVal = arr[<span class="num">0</span>];
+    <span class="kw">for</span> (<span class="tp">int</span> x : arr)          <span class="cm">// n تكرار</span>
+        maxVal = <span class="fn">max</span>(maxVal, x);
+    <span class="kw">return</span> maxVal;
+}
+
+<span class="cm">// ── O(n²) — حلقتان متداخلتان ──────────────────</span>
+<span class="tp">bool</span> <span class="fn">hasDuplicate</span>(<span class="tp">vector</span>&lt;<span class="tp">int</span>&gt;&amp; arr) {
+    <span class="tp">int</span> n = arr.<span class="fn">size</span>();
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="num">0</span>; i &lt; n; i++)       <span class="cm">// n تكرار</span>
+        <span class="kw">for</span> (<span class="tp">int</span> j = i+<span class="num">1</span>; j &lt; n; j++)  <span class="cm">// n تكرار</span>
+            <span class="kw">if</span> (arr[i] == arr[j]) <span class="kw">return true</span>;
+    <span class="kw">return false</span>;
+}
+
+<span class="cm">// ── O(log n) — النصف في كل مرة ────────────────</span>
+<span class="tp">int</span> <span class="fn">binarySearch</span>(<span class="tp">vector</span>&lt;<span class="tp">int</span>&gt;&amp; arr, <span class="tp">int</span> target) {
+    <span class="tp">int</span> l = <span class="num">0</span>, r = arr.<span class="fn">size</span>() - <span class="num">1</span>;
+    <span class="kw">while</span> (l &lt;= r) {              <span class="cm">// log n تكرار فقط</span>
+        <span class="tp">int</span> mid = l + (r - l) / <span class="num">2</span>;
+        <span class="kw">if</span> (arr[mid] == target) <span class="kw">return</span> mid;
+        <span class="kw">else if</span> (arr[mid] &lt; target) l = mid + <span class="num">1</span>;
+        <span class="kw">else</span> r = mid - <span class="num">1</span>;
+    }
+    <span class="kw">return</span> -<span class="num">1</span>;
+}</pre>
+    </div>
+  </div>
+
+  <h2 class="sec">2.5 تعقيد المساحة — Space Complexity</h2>
+  <div class="two">
+    <div class="def">
+      <div class="def-t">💾 تعقيد المساحة</div>
+      <p class="body">كمية الذاكرة الإضافية التي تحتاجها الخوارزمية. O(1) = لا ذاكرة إضافية. O(n) = ذاكرة بحجم المدخلات.</p>
+    </div>
+    <div>
+      <div class="chk"><span class="chki">✦</span><div><strong>O(1):</strong> Bubble Sort — يعمل في مكانه</div></div>
+      <div class="chk"><span class="chki">✦</span><div><strong>O(n):</strong> Merge Sort — مصفوفة مساعدة</div></div>
+      <div class="chk"><span class="chki">✦</span><div><strong>O(n):</strong> Recursion — Call Stack</div></div>
+      <div class="chk"><span class="chki">✦</span><div><strong>O(log n):</strong> Binary Search (recursive)</div></div>
+    </div>
+  </div>
+
+  <div class="ib">
+    <div class="ibt">🎯 أسئلة مقابلات شائعة — Big-O</div>
+    <div class="ibq">ما تعقيد: for(i=0;i&lt;n;i++) for(j=i;j&lt;n;j++) ؟ — الجواب: O(n²) لأن مجموع التكرارات = n(n+1)/2 ≈ n²/2</div>
+    <div class="ibq">هل O(2n) = O(n)؟ — نعم، الثوابت تُتجاهل في Big-O تماماً</div>
+    <div class="ibq">ما الفرق بين Best/Average/Worst Case؟ — نأخذ Worst Case للضمان، Average للواقع العملي</div>
+  </div>
+
+  <div class="ex">
+    <div class="exh"><span class="ext">📝 تمرين — حدد التعقيد</span><span class="exm"><span class="diff easy">Easy</span></span></div>
+    <div class="exb">
+      <div class="cw" style="margin-top:8px;">
+        <div class="ch"><span class="cl">C++ — ما تعقيد كل دالة؟</span></div>
+        <div class="cb2"><pre>
+<span class="cm">// (أ) ما تعقيد هذه الدالة؟</span>
+<span class="tp">void</span> <span class="fn">foo</span>(<span class="tp">int</span> n) {
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="num">1</span>; i &lt;= n; i *= <span class="num">2</span>)
+        <span class="fn">cout</span> &lt;&lt; i;
+}
+
+<span class="cm">// (ب) ما تعقيد هذه الدالة؟</span>
+<span class="tp">void</span> <span class="fn">bar</span>(<span class="tp">int</span> n) {
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="num">0</span>; i &lt; n; i++)
+        <span class="kw">for</span> (<span class="tp">int</span> j = <span class="num">0</span>; j &lt; <span class="num">100</span>; j++)
+            <span class="fn">cout</span> &lt;&lt; i + j;
+}
+
+<span class="cm">// (ج) ما تعقيد هذه الدالة؟</span>
+<span class="tp">void</span> <span class="fn">baz</span>(<span class="tp">int</span> n) {
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="num">0</span>; i &lt; n; i++)
+        <span class="fn">cout</span> &lt;&lt; i;
+    <span class="kw">for</span> (<span class="tp">int</span> j = <span class="num">0</span>; j &lt; n*n; j++)
+        <span class="fn">cout</span> &lt;&lt; j;
+}</pre>
+        </div>
+      </div>
+      <p class="body" style="margin-top:8px;"><strong>الإجابات:</strong><br>
+      (أ) <span class="bd exc">O(log n)</span> — i يتضاعف في كل مرة (1,2,4,8...) → log₂n تكرار<br>
+      (ب) <span class="bd gd">O(n)</span> — الحلقة الداخلية ثابتة (100 مرة دائماً) → تُتجاهل<br>
+      (ج) <span class="bd bd2">O(n²)</span> — الحلقة الثانية O(n²) تسود على O(n) الأولى</p>
+    </div>
+  </div>
+
+  <div class="pgf"><span class="pga">Eng. Ezzeldin Muhammed — CodexHub</span><span class="pgn">PAGE 13</span></div>
+</div>
+
+<!-- ══════ CH 3: ARRAYS ══════ -->
+<div class="cp">
+  <div class="pgh"><span class="pgch">الفصل الثالث ● المصفوفات — Arrays</span><span class="pgbr">CodexHub ✦ Eng. Ezzeldin Muhammed</span></div>
+  <div class="cho">
+    <div class="chnum">CHAPTER 03 — ARRAYS &amp; VECTORS</div>
+    <div class="chtitle">المصفوفات — Arrays</div>
+    <div class="chdesc">أبسط وأقدم هياكل البيانات وأكثرها استخداماً. فهم المصفوفات بعمق يفتح أمامك باب كل هيكل بيانات آخر.</div>
+  </div>
+
+  <h2 class="sec">3.1 ما هي المصفوفة؟</h2>
+  <div class="def">
+    <div class="def-t">💡 التعريف</div>
+    <p class="body">المصفوفة هي <strong>مجموعة من العناصر من نفس النوع مخزّنة في مواقع ذاكرة متجاورة</strong>. يُحدد كل عنصر بفهرسه (index) الذي يبدأ من صفر.</p>
+  </div>
+
+  <div class="av">
+    <div class="ac"><div class="cell c1">10</div><div class="ci">0</div></div>
+    <div class="ac"><div class="cell c2">20</div><div class="ci">1</div></div>
+    <div class="ac"><div class="cell c3">30</div><div class="ci">2</div></div>
+    <div class="ac"><div class="cell c4">40</div><div class="ci">3</div></div>
+    <div class="ac"><div class="cell c5">50</div><div class="ci">4</div></div>
+    <div class="ac"><div class="cell c6">60</div><div class="ci">5</div></div>
+  </div>
+  <div class="note info"><span class="ni">📍</span><span>في الذاكرة، العناصر متجاورة تماماً. لو arr[0] في العنوان 1000، فـ arr[1] في 1004 (لكل int 4 bytes). هذا ما يجعل الوصول O(1).</span></div>
+
+  <h2 class="sec">3.2 عمليات المصفوفة بـ C++</h2>
+  <div class="cw">
+    <div class="ch"><span class="cl">C++</span><span class="clb">arrays_basics.cpp</span></div>
+    <div class="cb2"><pre>
+<span class="inc">#include &lt;iostream&gt;</span>
+<span class="inc">#include &lt;vector&gt;</span>
+<span class="kw">using namespace</span> std;
+
+<span class="tp">int</span> <span class="fn">main</span>() {
+    <span class="cm">// ── إنشاء مصفوفة ──────────────────────────────</span>
+    <span class="tp">int</span> arr[<span class="num">5</span>] = {<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>, <span class="num">40</span>, <span class="num">50</span>};   <span class="cm">// ثابتة الحجم</span>
+    <span class="tp">vector</span>&lt;<span class="tp">int</span>&gt; v = {<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>};        <span class="cm">// ديناميكية</span>
+    <span class="tp">vector</span>&lt;<span class="tp">int</span>&gt; v2(<span class="num">5</span>, <span class="num">0</span>);               <span class="cm">// 5 عناصر قيمتها 0</span>
+
+    <span class="cm">// ── الوصول O(1) ───────────────────────────────</span>
+    <span class="fn">cout</span> &lt;&lt; arr[<span class="num">2</span>];           <span class="cm">// 30</span>
+    <span class="fn">cout</span> &lt;&lt; v.<span class="fn">front</span>();        <span class="cm">// 10 — أول عنصر</span>
+    <span class="fn">cout</span> &lt;&lt; v.<span class="fn">back</span>();         <span class="cm">// 30 — آخر عنصر</span>
+    <span class="fn">cout</span> &lt;&lt; v.<span class="fn">size</span>();         <span class="cm">// 3</span>
+
+    <span class="cm">// ── الإضافة ───────────────────────────────────</span>
+    v.<span class="fn">push_back</span>(<span class="num">40</span>);         <span class="cm">// O(1) amortized — للنهاية</span>
+    v.<span class="fn">insert</span>(v.<span class="fn">begin</span>(), <span class="num">5</span>);  <span class="cm">// O(n) — للبداية (إزاحة)</span>
+    v.<span class="fn">insert</span>(v.<span class="fn">begin</span>()+<span class="num">2</span>, <span class="num">15</span>); <span class="cm">// O(n) — للوسط</span>
+
+    <span class="cm">// ── الحذف ─────────────────────────────────────</span>
+    v.<span class="fn">pop_back</span>();             <span class="cm">// O(1) — من النهاية</span>
+    v.<span class="fn">erase</span>(v.<span class="fn">begin</span>());      <span class="cm">// O(n) — من البداية</span>
+    v.<span class="fn">clear</span>();               <span class="cm">// O(n) — حذف الكل</span>
+
+    <span class="cm">// ── الاستعراض ─────────────────────────────────</span>
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="num">0</span>; i &lt; v.<span class="fn">size</span>(); i++)
+        <span class="fn">cout</span> &lt;&lt; v[i] &lt;&lt; <span class="str">" "</span>;
+
+    <span class="kw">for</span> (<span class="tp">int</span> x : v) <span class="fn">cout</span> &lt;&lt; x &lt;&lt; <span class="str">" "</span>; <span class="cm">// Range-based</span>
+}</pre>
+    </div>
+  </div>
+
+  <table class="cxt">
+    <thead><tr><th>العملية</th><th>التعقيد الزمني</th><th>التعقيد المكاني</th><th>ملاحظة</th></tr></thead>
+    <tbody>
+      <tr><td>الوصول arr[i]</td><td class="g">O(1)</td><td class="g">O(1)</td><td>العنوان = base + i×size</td></tr>
+      <tr><td>البحث (unsorted)</td><td class="m">O(n)</td><td class="g">O(1)</td><td>Linear Scan</td></tr>
+      <tr><td>البحث (sorted)</td><td class="g">O(log n)</td><td class="g">O(1)</td><td>Binary Search</td></tr>
+      <tr><td>push_back</td><td class="g">O(1)*</td><td class="g">O(1)</td><td>*amortized مع vector</td></tr>
+      <tr><td>insert (beginning/middle)</td><td class="m">O(n)</td><td class="g">O(1)</td><td>إزاحة العناصر</td></tr>
+      <tr><td>pop_back</td><td class="g">O(1)</td><td class="g">O(1)</td><td>—</td></tr>
+      <tr><td>erase (beginning/middle)</td><td class="m">O(n)</td><td class="g">O(1)</td><td>إزاحة العناصر</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="sec">3.3 تمارين LeetCode Style</h2>
+
+  <div class="ex">
+    <div class="exh"><span class="ext">مسألة 1: Two Sum</span><span class="exm"><span class="diff easy">Easy</span> <span class="ct">Google</span><span class="ct">Amazon</span><span class="ct">Meta</span><span class="ct">Apple</span></span></div>
+    <div class="exb">
+      <p class="body"><strong>المشكلة:</strong> أعطيت مصفوفة nums وعدد target، أرجع فهارس العنصرين اللذين مجموعهما يساوي target.</p>
+      <p class="body"><strong>مثال:</strong> nums = [2,7,11,15], target = 9 → Output: [0,1] لأن 2+7=9</p>
+      <div class="note warn"><span class="ni">💭</span><span><strong>فكّر أولاً:</strong> الحل Brute Force بحلقتين O(n²). لكن كيف نوصل لـ O(n) باستخدام Hash Map؟ الفكرة: لكل رقم، ابحث عن "complement = target - رقم" في الـ map.</span></div>
+      <div class="cw" style="margin-top:9px;">
+        <div class="ch"><span class="cl">C++ — الحل الأمثل O(n) / Space O(n)</span></div>
+        <div class="cb2"><pre>
+<span class="tp">vector</span>&lt;<span class="tp">int</span>&gt; <span class="fn">twoSum</span>(<span class="tp">vector</span>&lt;<span class="tp">int</span>&gt;&amp; nums, <span class="tp">int</span> target) {
+    <span class="tp">unordered_map</span>&lt;<span class="tp">int</span>, <span class="tp">int</span>&gt; seen; <span class="cm">// value → index</span>
+
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="num">0</span>; i &lt; nums.<span class="fn">size</span>(); i++) {
+        <span class="tp">int</span> complement = target - nums[i];
+
+        <span class="kw">if</span> (seen.<span class="fn">count</span>(complement))
+            <span class="kw">return</span> {seen[complement], i}; <span class="cm">// وجدناه!</span>
+
+        seen[nums[i]] = i; <span class="cm">// خزّن لاحقاً</span>
+    }
+    <span class="kw">return</span> {}; <span class="cm">// لا حل</span>
+}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex">
+    <div class="exh"><span class="ext">مسألة 2: Maximum Subarray (Kadane's Algorithm)</span><span class="exm"><span class="diff medium">Medium</span> <span class="ct">Microsoft</span><span class="ct">Apple</span><span class="ct">Amazon</span></span></div>
+    <div class="exb">
+      <p class="body"><strong>المشكلة:</strong> أوجد المصفوفة الجزئية المتجاورة ذات المجموع الأعلى.</p>
+      <p class="body"><strong>مثال:</strong> [-2,1,-3,4,-1,2,1,-5,4] → 6 (المصفوفة [4,-1,2,1])</p>
+      <div class="cw" style="margin-top:9px;">
+        <div class="ch"><span class="cl">C++ — Kadane's Algorithm O(n) / Space O(1)</span></div>
+        <div class="cb2"><pre>
+<span class="tp">int</span> <span class="fn">maxSubArray</span>(<span class="tp">vector</span>&lt;<span class="tp">int</span>&gt;&amp; nums) {
+    <span class="tp">int</span> maxSum = nums[<span class="num">0</span>];
+    <span class="tp">int</span> curSum = nums[<span class="num">0</span>];
+
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="num">1</span>; i &lt; nums.<span class="fn">size</span>(); i++) {
+        <span class="cm">// هل أبدأ من الصفر أم أكمل التسلسل؟</span>
+        curSum = <span class="fn">max</span>(nums[i], curSum + nums[i]);
+        maxSum = <span class="fn">max</span>(maxSum, curSum);
+    }
+    <span class="kw">return</span> maxSum;
+}
+<span class="cm">// الفكرة: إذا curSum أصبح سالباً، ابدأ من جديد</span></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex">
+    <div class="exh"><span class="ext">مسألة 3: Product of Array Except Self</span><span class="exm"><span class="diff medium">Medium</span> <span class="ct">Meta</span><span class="ct">Amazon</span><span class="ct">Google</span></span></div>
+    <div class="exb">
+      <p class="body"><strong>المشكلة:</strong> أرجع مصفوفة بحيث output[i] = حاصل ضرب كل العناصر عدا nums[i]. بدون استخدام القسمة!</p>
+      <p class="body"><strong>مثال:</strong> [1,2,3,4] → [24,12,8,6]</p>
+      <div class="cw" style="margin-top:9px;">
+        <div class="ch"><span class="cl">C++ — Prefix &amp; Suffix Products O(n) / Space O(1)</span></div>
+        <div class="cb2"><pre>
+<span class="tp">vector</span>&lt;<span class="tp">int</span>&gt; <span class="fn">productExceptSelf</span>(<span class="tp">vector</span>&lt;<span class="tp">int</span>&gt;&amp; nums) {
+    <span class="tp">int</span> n = nums.<span class="fn">size</span>();
+    <span class="tp">vector</span>&lt;<span class="tp">int</span>&gt; res(n, <span class="num">1</span>);
+
+    <span class="cm">// مرور أول: ضرب ما على اليمين (prefix)</span>
+    <span class="tp">int</span> prefix = <span class="num">1</span>;
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="num">0</span>; i &lt; n; i++) {
+        res[i] = prefix;
+        prefix *= nums[i];
+    }
+
+    <span class="cm">// مرور ثانٍ: ضرب ما على اليسار (suffix)</span>
+    <span class="tp">int</span> suffix = <span class="num">1</span>;
+    <span class="kw">for</span> (<span class="tp">int</span> i = n-<span class="num">1</span>; i &gt;= <span class="num">0</span>; i--) {
+        res[i] *= suffix;
+        suffix *= nums[i];
+    }
+    <span class="kw">return</span> res;
+}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pgf"><span class="pga">Eng. Ezzeldin Muhammed — CodexHub</span><span class="pgn">PAGE 24</span></div>
+</div>
+
+<div style="
+    margin-top:40px;
+    padding:25px;
+    border-radius:15px;
+    background: linear-gradient(135deg, #4b0082, #6a0dad);
+    color:white;
+    text-align:center;
+    font-family: 'Cairo', sans-serif;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+">
+
+    <h2 style="margin-bottom:10px;">🚨 هذه نسخة تجريبية</h2>
+
+    <p style="font-size:16px; line-height:1.8;">
+        هذا المحتوى هو جزء من كتاب <b>الخوارزميات وهياكل البيانات من الصفر للاحتراف</b>  
+        وتم توفيره لمساعدتك على التعرف على أسلوب الشرح وجودة المحتوى.
+    </p>
+
+    <p style="margin-top:15px; font-size:15px;">
+        للحصول على النسخة الكاملة التي تشمل جميع الفصول، التمارين،  
+        وتحضير مقابلات FAANG 👇
+    </p>
+
+    <h3 style="margin:20px 0; color:#FFD700;">
+        📩 اطلب النسخة الكاملة الآن
+    </h3>
+
+    <p style="font-size:14px;">
+        ابعت رسالة بكلمة <b>DSA</b> للحصول على التفاصيل وطريقة الشراء 🚀
+    </p>
+
+    <hr style="margin:20px 0; border-color: rgba(255,255,255,0.3);">
+
+    <p style="font-size:12px; opacity:0.8;">
+        © CodeXHub — Eng. Ezzeldin Muhammed  
+        جميع الحقوق محفوظة
+    </p>
+
+</div>
+
+</body>
+</html>
